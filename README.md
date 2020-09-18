@@ -1,4 +1,4 @@
-# ROS Packages for Scout Mobile Base
+# ROS Packages for Scout_mini Mobile Base
 
 ## Packages
 
@@ -71,7 +71,7 @@ Two scripts inside the "scout_bringup/scripts" folder are provided for easy setu
 
     ```
     $ cd ~/catkin_ws/src
-    $ git clone https://gitee.com/agilexrobotics/scout_mini_ros.git
+    $ git clone https://github.com/agilexrobotics/scout_mini_ros.git
     $ cd ..
     $ catkin_make
     ```
