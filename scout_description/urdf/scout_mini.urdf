@@ -10,7 +10,7 @@
   <!-- Base link -->
   <link name="base_link">
     <visual>
-      <origin rpy="1.57 0 1.57" xyz="0 0 0.0"/>
+      <origin rpy="1.57 0 -1.57" xyz="0 0 0.0"/>
       <geometry>
         <mesh filename="package://scout_description/meshes/scout_mini_base_link2.dae"/>
       </geometry>
@@ -63,7 +63,7 @@
     <inertial>
       <mass value="3"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="0.7171" ixy="0" ixz="0" iyy="0.7171" iyz="0" izz="0.1361"/>
+      <inertia ixx="0.6171" ixy="0" ixz="0" iyy="0.6171" iyz="0" izz="0.1361"/>
       <!--<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />-->
     </inertial>
     <visual>
@@ -105,7 +105,7 @@
     <inertial>
       <mass value="3"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="0.7171" ixy="0" ixz="0" iyy="0.7171" iyz="0" izz="0.1361"/>
+      <inertia ixx="0.6171" ixy="0" ixz="0" iyy="0.6171" iyz="0" izz="0.1361"/>
       <!--<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />-->
     </inertial>
     <visual>
@@ -147,7 +147,7 @@
     <inertial>
       <mass value="3"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="0.7171" ixy="0" ixz="0" iyy="0.7171" iyz="0" izz="0.1361"/>
+      <inertia ixx="0.6171" ixy="0" ixz="0" iyy="0.6171" iyz="0" izz="0.1361"/>
       <!--<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />-->
     </inertial>
     <visual>
@@ -189,7 +189,7 @@
     <inertial>
       <mass value="3"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="0.7171" ixy="0" ixz="0" iyy="0.7171" iyz="0" izz="0.1361"/>
+      <inertia ixx="0.6171" ixy="0" ixz="0" iyy="0.6171" iyz="0" izz="0.1361"/>
       <!--<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />-->
     </inertial>
     <visual>
