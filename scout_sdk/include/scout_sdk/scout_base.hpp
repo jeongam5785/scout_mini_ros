@@ -48,7 +48,7 @@ public:
     void SetCmdThreadPeriodMs(int32_t period_ms) { cmd_thread_period_ms_ = period_ms; };
 
     // motion control
-    void SetMotionCommand(double linear_vel, double angular_vel,
+    void SetMotionCommand(double linear_vel, double transverse_linear_vel, double angular_vel,
                           ScoutMotionCmd::FaultClearFlag fault_clr_flag = ScoutMotionCmd::FaultClearFlag::NO_FAULT);
 
     // light control

@@ -155,10 +155,10 @@ void ScoutBase::SendMotionCmd(uint8_t count)
     m_msg.data.cmd.fault_clear_flag = static_cast<uint8_t>(current_motion_cmd_.fault_clear_flag);
     m_msg.data.cmd.linear_velocity_cmd = current_motion_cmd_.linear_velocity;
     m_msg.data.cmd.angular_velocity_cmd = current_motion_cmd_.angular_velocity;
+    m_msg.data.cmd.transverse_linear_velocity_cmd = current_motion_cmd_.transverse_linear_velocity;
     motion_cmd_mutex_.unlock();
 
     m_msg.data.cmd.reserved0 = 0;
-    m_msg.data.cmd.reserved1 = 0;
     m_msg.data.cmd.count = count;
 
     if (can_connected_)
@@ -266,7 +266,7 @@ ScoutState ScoutBase::GetScoutState()
     return scout_state_;
 }
 
-void ScoutBase::SetMotionCommand(double linear_vel, double angular_vel, ScoutMotionCmd::FaultClearFlag fault_clr_flag)
+void ScoutBase::SetMotionCommand(double linear_vel, double transverse_linear_vel, double angular_vel, ScoutMotionCmd::FaultClearFlag fault_clr_flag)
 {
     // make sure cmd thread is started before attempting to send commands
     if (!cmd_thread_started_)
@@ -276,6 +276,10 @@ void ScoutBase::SetMotionCommand(double linear_vel, double angular_vel, ScoutMot
         linear_vel = ScoutMotionCmd::min_linear_velocity;
     if (linear_vel > ScoutMotionCmd::max_linear_velocity)
         linear_vel = ScoutMotionCmd::max_linear_velocity;
+    if (transverse_linear_vel < ScoutMotionCmd::min_transverse_linear_velocity)
+        transverse_linear_vel = ScoutMotionCmd::min_transverse_linear_velocity;
+    if (transverse_linear_vel > ScoutMotionCmd::max_transverse_linear_velocity)
+        transverse_linear_vel = ScoutMotionCmd::max_transverse_linear_velocity;
     if (angular_vel < ScoutMotionCmd::min_angular_velocity)
         angular_vel = ScoutMotionCmd::min_angular_velocity;
     if (angular_vel > ScoutMotionCmd::max_angular_velocity)
@@ -284,6 +288,7 @@ void ScoutBase::SetMotionCommand(double linear_vel, double angular_vel, ScoutMot
     std::lock_guard<std::mutex> guard(motion_cmd_mutex_);
     current_motion_cmd_.linear_velocity = static_cast<int8_t>(linear_vel / ScoutMotionCmd::max_linear_velocity * 100.0);
     current_motion_cmd_.angular_velocity = static_cast<int8_t>(angular_vel / ScoutMotionCmd::max_angular_velocity * 100.0);
+    current_motion_cmd_.transverse_linear_velocity = static_cast<int8_t>(transverse_linear_vel / ScoutMotionCmd::max_transverse_linear_velocity * 100.0);
     current_motion_cmd_.fault_clear_flag = fault_clr_flag;
 }
 
@@ -348,6 +353,7 @@ void ScoutBase::UpdateScoutState(const ScoutStatusMessage &status_msg, ScoutStat
         const MotionStatusMessage &msg = status_msg.motion_status_msg;
         state.linear_velocity = static_cast<int16_t>(static_cast<uint16_t>(msg.data.status.linear_velocity.low_byte) | static_cast<uint16_t>(msg.data.status.linear_velocity.high_byte) << 8) / 1000.0;
         state.angular_velocity = static_cast<int16_t>(static_cast<uint16_t>(msg.data.status.angular_velocity.low_byte) | static_cast<uint16_t>(msg.data.status.angular_velocity.high_byte) << 8) / 1000.0;
+        state.transverse_linear_velocity = static_cast<int16_t>(static_cast<uint16_t>(msg.data.status.transverse_linear_velocity.low_byte) | static_cast<uint16_t>(msg.data.status.transverse_linear_velocity.high_byte) << 8) / 1000.0;
         break;
     }
     case ScoutLightStatusMsg:
