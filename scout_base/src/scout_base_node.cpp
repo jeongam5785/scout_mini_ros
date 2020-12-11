@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     ros::Rate rate_50hz(50); // 50Hz
     while (true)
     {
-        messenger.PublishStateToROS();
+        // messenger.PublishStateToROS();
         ros::spinOnce();
         rate_50hz.sleep();
     }

@@ -38,7 +38,7 @@ void ScoutROSMessenger::TwistCmdCallback(const geometry_msgs::Twist::ConstPtr &m
 {
     if (!simulated_robot_)
     {
-        scout_->SetMotionCommand(msg->linear.x, msg->linear.y, msg->angular.z);
+        scout_->SetMotionCommand(msg->linear.x, msg->angular.z);
     }
     else
     {
@@ -148,7 +148,6 @@ void ScoutROSMessenger::PublishStateToROS()
 
     status_msg.linear_velocity = state.linear_velocity;
     status_msg.angular_velocity = state.angular_velocity;
-    status_msg.transverse_linear_velocity = state.transverse_linear_velocity;
 
     status_msg.base_state = state.base_state;
     status_msg.control_mode = state.control_mode;

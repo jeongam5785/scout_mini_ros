@@ -1,15 +1,14 @@
 use_map_topic: true
 
 odom_frame_id: "odom"
-base_frame_id: "base_link" #"base_footprint"
-global_frame_id: "map"
+base_frame_id: "base_link"
 
 ## Publish scans from best pose at a max of 10 Hz
 odom_model_type: "diff"
 odom_alpha5: 0.1
 gui_publish_rate: 10.0
 laser_max_beams: 60
-laser_max_range: 12.0
+laser_max_range: 9.0
 min_particles: 500
 max_particles: 2000
 kld_err: 0.05

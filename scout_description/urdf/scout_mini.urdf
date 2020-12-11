@@ -39,6 +39,22 @@
     <parent link="base_link"/>
     <child link="inertial_link"/>
   </joint>
+    <link name="t265_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" />
+            <geometry>
+                <cylinder length="0.03" radius="0.02" />
+            </geometry>
+            <material name="red" />
+        </visual>
+    </link>
+
+    <joint name="t265_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="t265_link" />
+        <origin xyz="0.32 0.0 0.18" rpy="0 0 0" />
+    </joint>
+  
   <!-- For testing, hang the robot up in the air -->
   <!-- <link name="world" />
     <joint name="world_to_base_link=" type="fixed">

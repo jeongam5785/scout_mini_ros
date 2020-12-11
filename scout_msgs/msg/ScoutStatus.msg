@@ -11,7 +11,6 @@ int8 LIGHT_ID_REAR = 1
 # motion state
 float64 linear_velocity
 float64 angular_velocity
-float64 transverse_linear_velocity
 
 # base state
 uint8 base_state

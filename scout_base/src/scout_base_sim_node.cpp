@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     while (true)
     {
         messenger.GetCurrentMotionCmdForSim(linear, angular);
-        messenger.PublishSimStateToROS(linear, angular);
+        // messenger.PublishSimStateToROS(linear, angular);
         ros::spinOnce();
         rate_50hz.sleep();
     }

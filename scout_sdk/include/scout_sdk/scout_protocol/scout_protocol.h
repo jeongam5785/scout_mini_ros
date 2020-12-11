@@ -116,8 +116,8 @@ typedef struct {
             uint8_t fault_clear_flag;
             int8_t linear_velocity_cmd;
             int8_t angular_velocity_cmd;
-            uint8_t transverse_linear_velocity_cmd;
             uint8_t reserved0;
+            uint8_t reserved1;
             uint8_t count;
             uint8_t checksum;
         } cmd;
@@ -140,11 +140,8 @@ typedef struct {
                 uint8_t high_byte;
                 uint8_t low_byte;
             } angular_velocity;
-            struct
-            {
-                uint8_t high_byte;
-                uint8_t low_byte;
-            } transverse_linear_velocity;
+            uint8_t reserved0;
+            uint8_t reserved1;
             uint8_t count;
             uint8_t checksum;
         } status;
