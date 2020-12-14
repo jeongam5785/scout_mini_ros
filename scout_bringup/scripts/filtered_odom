@@ -43,7 +43,7 @@ odom_pub = rospy.Publisher("t265/odom/sample1", Odometry, queue_size=1)
 
 def odomCb(msg):
     odom = Odometry()
-    msg.pose.pose.position.z = 0.0
+    msg.pose.pose.position.z = -0.4
     odom = msg
     odom_pub.publish(odom)
     rospy.Rate(20) # 10hz

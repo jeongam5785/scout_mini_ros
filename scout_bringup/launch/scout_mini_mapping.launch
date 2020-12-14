@@ -7,8 +7,9 @@
   <arg name="sw_registered"     default="false"/>
   <arg     if="$(arg localization)" name="args"  default=""/>
   <arg unless="$(arg localization)" name="args"  default="--delete_db_on_start"/>
- 
   <arg name="wait_for_transform"  default="0.2"/> 
+  <arg name="open_rviz" default="true"/>
+  <arg name="move_forward_only" default="true"/>
 
   <arg name="device_type_camera1"    		default="t265"/>
   <arg name="device_type_camera2"    		default="l515"/>	<!-- Note: using regular expression. match D435, D435i, D415... -->
@@ -20,10 +21,8 @@
   <arg name="use_rviz"                  default="false"/>
   <arg name="use_rtabmapviz"            default="false"/>
 
-  <!-- <arg name="scan_topic" default="/scan"/> -->
-  <arg name="open_rviz" default="true"/>
-  <arg name="move_forward_only" default="false"/>
   <include file="$(find scout_bringup)/launch/scout_mini_remote.launch"></include>
+
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
   <include file="$(find realsense2_camera)/launch/rs_l515_and_t265.launch">
@@ -39,6 +38,7 @@
   <include file="$(find scout_description)/launch/move_base.launch">
     <arg name="move_forward_only" value="$(arg move_forward_only)"/>
   </include>  
+  
   <remap from="/rtabmap/grid_map" to="/map"/>
 
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
@@ -51,16 +51,19 @@
     <arg name="odom_topic"         value="/$(arg camera1)/odom/sample"/>
     <arg name="rgb_topic"          value="/$(arg camera2)/color/image_raw"/>
     <arg name="camera_info_topic"  value="/$(arg camera2)/color/camera_info"/>
-	<param name="Reg/Force3DoF"    value="true" />
-	<param name="Optimizer/Slam2D" value="true" />
+    <param name="cloud_noise_filtering_radius" value="0.15"/>
+    <param name="cloud_noise_filtering_min_neighbors" value="15"/>
+	  <param name="Reg/Force3DoF"    value="true" />
+	  <param name="Optimizer/Slam2D" value="true" />
     <param name="proj_max_height" value="2.0"/>
-	<param name="proj_max_ground_height" value="0.1"/>
+	  <param name="proj_max_ground_height" value="0.1"/>
     <param name="Rtabmap/DetectionRate" type="string" value="2"/>
     <param name="use_action_for_goal" type="bool" value="true"/>
+    <param name="proj_min_cluster_size" value="40"/>
     <remap from="move_base"            to="/move_base"/>
     <param     if="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="false"/>
     <param unless="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="true"/>
-	<param name="Mem/InitWMWithAllNodes" type="string" value="$(arg localization)"/>
+  	<param name="Mem/InitWMWithAllNodes" type="string" value="$(arg localization)"/>
     <arg name="queue_size"         value="200"/>
     <arg name="rviz"               value="$(arg use_rviz)"/>
     <arg name="rtabmapviz"         value="$(arg use_rtabmapviz)"/>
@@ -69,9 +72,7 @@
 
   <group if="$(arg open_rviz)"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
-          args="-d $(find scout_description)/rviz/turtlebot_navigation.rviz"/>
+          args="-d $(find scout_description)/rviz/scout_navigation.rviz"/>
   </group>
-
-
 
 </launch>
